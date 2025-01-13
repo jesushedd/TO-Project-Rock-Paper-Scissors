@@ -6,13 +6,19 @@ let pc = ""
 let rounds = 1
 
 
-playGame()
+//Add events handlesr for buttons, using delegation
+const options = document.querySelector(".options");
+options.addEventListener("click", (e) =>{
+    let value = e.target.value;
+    if (value == undefined){
+        return;
+    }
+    //console.log(typeof value);
+    player = value;
+    //console.log(player);
 
 
-
-
-
-
+})
 
 
 
@@ -26,10 +32,6 @@ function playGame(){
     declareWinner()
     showFinalScore()
 }
-
-
-
-
 
 
 function showFinalScore(){
@@ -47,29 +49,12 @@ function declareWinner(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function playRound(){
-    player = getHumanChoice()
+    //player = getHumanChoice()
     pc = getComputerChoice()
-    showPcAnswer()
+    //showPcAnswer()
     evaluate()
 }
-
-
-
 
 
 function evaluate(){
@@ -120,16 +105,6 @@ function evaluate(){
 function showPcAnswer(){
     alert("Computer got" + " " + pc)
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
