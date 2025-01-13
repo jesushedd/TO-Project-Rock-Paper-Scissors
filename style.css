@@ -1,0 +1,19 @@
+.options{
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    background-color: darkorange;
+    flex-wrap: wrap;
+}
+
+.op{
+    width: 200px;
+    font-size: 2rem ;
+    height: 4rem;
+}
+.op:hover{
+    cursor: pointer;
+    background-color: pink;
+}
