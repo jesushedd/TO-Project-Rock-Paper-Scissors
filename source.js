@@ -1,3 +1,5 @@
+const options = document.querySelector(".options");
+const scoresFrame = document.querySelector(".scores");
 
 let humanScore = 0
 let computerScore = 0
@@ -7,17 +9,17 @@ let rounds = 1
 
 
 //Add events handlesr for buttons, using delegation
-const options = document.querySelector(".options");
+
 options.addEventListener("click", (e) =>{
     let value = e.target.value;
     if (value == undefined){
+        
         return;
     }
     //console.log(typeof value);
     player = value;
     //console.log(player);
-
-
+    playRound()
 })
 
 
@@ -39,21 +41,44 @@ function showFinalScore(){
 }
 
 function declareWinner(){
-    if (computerScore > humanScore){
-        alert("Computer es Abosolute Winner!")
-    } else if (humanScore > computerScore){
-        alert("Human is absolute Winner!")
-    } else {
-        alert("Absolute Tie!")
+    //scoresFrame.removeChild(document.querySelector("#pc-score"));
+    //scoresFrame.removeChild(document.querySelector("#player-score"));
+    scoresFrame.removeChild(document.querySelector("#round-counter"));
+
+    let winnerMessage = " WINS!";
+    let winner = "";
+    if (computerScore === humanScore){
+        winnerMessage = "TIE!";
+    } else{
+        winner = computerScore > humanScore? "COMPUTER": "PLAYER";
     }
+
+    winnerMessage = winner + winnerMessage;
+
+    let winnerdiv = document.createElement("div");
+    winnerdiv.textContent = winnerMessage;
+
+    scoresFrame.appendChild(winnerdiv);
 }
 
 
 function playRound(){
+    
     //player = getHumanChoice()
-    pc = getComputerChoice()
+    pc = getComputerChoice();
     //showPcAnswer()
-    evaluate()
+    evaluate();
+    rounds++;
+    updateScores();
+    checkGame();
+    
+}
+
+function checkGame(){
+    if (rounds > 5){
+        disableOptions();
+        declareWinner()
+    }
 }
 
 
@@ -135,4 +160,23 @@ function getHumanChoice(){
         alert("Invalid Option! Try Again")
         return getHumanChoice();
     }
+}
+
+
+function updateScores(){
+    document.querySelector("#pc-score").textContent = "PC Score:\t" + computerScore;
+    document.querySelector("#player-score").textContent = "Player Score:\t" + humanScore;
+    //Show round number
+    let nextRound = rounds >= 5? 5: rounds; 
+    document.querySelector("#round-counter").textContent = "Round: \t" + nextRound;
+    
+}
+
+function disableOptions(){
+    let weas = options.children;
+    console.log(weas)
+    Array.from (weas).forEach((b) => {
+        console.log(typeof b)
+        b.setAttribute("disabled", "");
+    })
 }
